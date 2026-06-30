@@ -23,6 +23,7 @@ public class Movement : MonoBehaviour
     {
         thrustProgress();
         thrustRotation();
+        Debug.Log("Rot: " + rotation);
     }
 
     void thrustProgress()
@@ -36,12 +37,20 @@ public class Movement : MonoBehaviour
     {
          float rotationInput = rotation.ReadValue<float>();
          if(rotationInput < 0)
+        {
+            ApplyRotation(rotationStrength);
+        }
+        else if(rotationInput > 0)
          {
-            transform.Rotate(Vector3.forward * rotationStrength * Time.fixedDeltaTime);
-         }
-         if(rotationInput > 0)
-         {
-            transform.Rotate(Vector3.back * rotationStrength * Time.fixedDeltaTime);
+            ApplyRotation(-rotationStrength);
          }
     }
+
+    private void ApplyRotation(float rotationFlag)
+    {
+        rb.freezeRotation = true;
+        transform.Rotate(Vector3.forward * rotationFlag * Time.fixedDeltaTime);
+        rb.freezeRotation = false;
+    }
+
 }
