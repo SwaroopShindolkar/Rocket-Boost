@@ -25,7 +25,6 @@ public class Movement : MonoBehaviour
     {
         thrustProgress();
         thrustRotation();
-        Debug.Log("Rot: " + rotation);
     }
 
     void thrustProgress()
